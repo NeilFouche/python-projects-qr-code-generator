@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QR Code Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .container { margin: 50px auto; max-width: 600px; }
+        input[type="text"] { width: 80%; padding: 10px; }
+        input[type="submit"] { padding: 10px 20px; margin-top: 10px; }
+        img { margin-top: 20px; max-width: 300px; }
+        .error { color: red; }
+        a.download-btn { display: inline-block; padding: 10px 20px; margin-top: 10px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; }
+    </style>
+</head>
+    <body>
+        <div class="container">
+            <h1>QR Code Generator</h1>
+            <form method="post">
+                {% csrf_token %}
+                <input type="text" name="input_text" value="{{ input_text }}" placeholder="Enter text or URL">
+                <br>
+                <input type="submit" value="Generate QR Code">
+            </form>
+            {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+            {% if qr_image_path %}
+                <h3>Your QR Code:</h3>
+                <img src="{% static qr_image_path %}" alt="QR Code">
+                <br>
+                <a href="{% url 'qr_code_generator_app:download_qr' %}" class="download-btn">Download QR Code</a>
+            {% endif %}
+        </div>
+    </body>
+</html>
