@@ -3,33 +3,38 @@
 <html>
 <head>
     <title>QR Code Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        .container { margin: 50px auto; max-width: 600px; }
-        input[type="text"] { width: 80%; padding: 10px; }
-        input[type="submit"] { padding: 10px 20px; margin-top: 10px; }
-        img { margin-top: 20px; max-width: 300px; }
-        .error { color: red; }
-        a.download-btn { display: inline-block; padding: 10px 20px; margin-top: 10px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; }
+        .narrow-input { max-width: 500px; }
+        .divider { border-top: 1px solid #AAA; max-width: 600px; }
     </style>
 </head>
     <body>
-        <div class="container">
+        <div class="container mt-5 text-center">
             <h1>QR Code Generator</h1>
-            <form method="post">
-                {% csrf_token %}
-                <input type="text" name="input_text" value="{{ input_text }}" placeholder="Enter text or URL">
-                <br>
-                <input type="submit" value="Generate QR Code">
-            </form>
-            {% if error %}
-                <p class="error">{{ error }}</p>
-            {% endif %}
+            <!-- Input Section -->
+            <div class="mb-5">
+              <form class="mt-5 mx-auto" method="post">
+                  {% csrf_token %}
+                  <div class="mb-3 mx-auto narrow-input">
+                    <input class="form-control" type="text" name="input_text" value="{{ input_text }}" placeholder="Enter text or URL">
+                  </div>
+                  <button class="btn btn-primary" type="submit">Generate QR Code</button>
+              </form>
+              {% if error %}
+                  <p class="text-danger mt-3">{{ error }}</p>
+              {% endif %}
+            </div>
+            <!-- Divider -->
+            <hr class="divider mx-auto">
+            <!-- Output Section -->
             {% if qr_image_path %}
-                <h3>Your QR Code:</h3>
-                <img src="{% static qr_image_path %}" alt="QR Code">
-                <br>
-                <a href="{% url 'qr_code_generator_app:download_qr' %}" class="download-btn">Download QR Code</a>
+                <div class="mt-5">
+                  <h3 class="text-center">Your QR Code:</h3>
+                  <img class="img-fluid" src="{% static qr_image_path %}" alt="QR Code">
+                  <br>
+                  <a href="{% url 'qr_code_generator_app:download_qr' %}" class="btn btn-success mt-3 center">Download QR Code</a>
+                </div>
             {% endif %}
         </div>
     </body>
