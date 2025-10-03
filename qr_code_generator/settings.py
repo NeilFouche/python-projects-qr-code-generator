@@ -8,7 +8,7 @@ from pathlib import Path
 BASE_DIR      = Path(__file__).resolve().parent.parent
 SECRET_KEY    = os.environ.get('DJANGO_SECRET_KEY')
 DEBUG         = True
-ALLOWED_HOSTS = ['neilfouche.pythonanywhere.com', '127.0.0.1']
+ALLOWED_HOSTS = ['neilfouche.pythonanywhere.com', '127.0.0.1', 'qr-code-generator-kgkh.onrender.com']
 
 ###############################################################################
 #                           Application definition                            #
